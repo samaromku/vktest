@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">VkTest</string>
+    <string name="enter_group_id">Введите id группы</string>
     <integer name="com_vk_sdk_AppId">5640858</integer>
 </resources>

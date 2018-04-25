@@ -6,6 +6,8 @@ import com.arellomobile.mvp.MvpView
 interface BaseView : MvpView {
     fun showError(error: String)
     fun changeToolbarTitle(title: String)
+    fun showProgress()
+    fun hideProgress()
     /**
      * метод если нужно заблочить ui, к примеру получить данные и больше ничего
      */

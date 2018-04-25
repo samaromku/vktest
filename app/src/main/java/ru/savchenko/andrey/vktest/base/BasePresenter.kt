@@ -1,6 +1,9 @@
 package ru.savchenko.andrey.vktest.base
 
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.Single
+import io.reactivex.SingleSource
+import io.reactivex.SingleTransformer
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
@@ -42,13 +45,21 @@ open class BasePresenter<T : BaseView> : MvpPresenter<T>() {
         }
     }
 
+    inner class DialogTransformer<T> : SingleTransformer<T, T> {
+        override fun apply(upstream: Single<T>): SingleSource<T> {
+            return upstream
+                    .doOnSubscribe { showDialog() }
+                    .doFinally({ hideDialog() })
+        }
+    }
+
 
     fun showDialog() {
-        viewState.showDialog()
+        viewState.showProgress()
     }
 
     fun hideDialog() {
-        viewState.hideDialog()
+        viewState.hideProgress()
     }
 
     fun showError(error: String) {

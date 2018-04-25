@@ -20,6 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 def anko_version='0.10.3'
 def mySupportVersion = '26.1.0'
@@ -52,4 +55,6 @@ dependencies {
     kapt 'com.arello-mobile:moxy-compiler:1.5.3'
     annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
     compile 'com.arello-mobile:moxy-app-compat:1.5.3'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

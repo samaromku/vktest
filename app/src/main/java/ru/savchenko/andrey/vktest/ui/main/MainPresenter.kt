@@ -9,14 +9,26 @@ import ru.savchenko.andrey.vktest.storage.Storage
  * Created by Andrey on 24.04.2018.
  */
 @InjectViewState
-class MainPresenter:BasePresenter<MainView>() {
-    fun getNews(){
-        Storage.token?.accessToken?.let {
-            corMethod(request = { NetworkHandler.getService().getNews(it).execute() },
-                    onResult = {result ->
-                        println(result)
-                    })
+class MainPresenter : BasePresenter<MainView>() {
+    private val interActor = MainInterActor()
+    fun getNews(ownerId:String) {
+        if(ownerId.isNotEmpty()) {
+            interActor.getNews(ownerId)
+                    .compose(DialogTransformer())
+                    .subscribe({ list ->
+                        viewState.setListToAdapter(list.toMutableList())
+                    },
+                            { t ->
+                                t.printStackTrace()
+                                showError(t.message.toString())
+                            })
+        }else {
+            viewState.showToast("Заполните id группы")
         }
+    }
 
+    fun initSdkIfNeed(){
+        interActor.initSdkIfNeed()
+                .subscribe({needInit -> viewState.initSdk()})
     }
 }

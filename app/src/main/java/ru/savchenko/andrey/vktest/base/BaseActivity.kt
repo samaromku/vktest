@@ -6,8 +6,10 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.savchenko.andrey.vktest.R
 
 
@@ -60,7 +62,7 @@ open class BaseActivity : MvpAppCompatActivity(), BaseView {
         return super.onSupportNavigateUp()
     }
 
-    override fun showError(error: String){
+    override fun showError(error: String) {
         val builder = AlertDialog.Builder(this, R.style.MyDialogTheme)
         builder.setTitle("Ошибка")
                 .setMessage(error)
@@ -73,7 +75,7 @@ open class BaseActivity : MvpAppCompatActivity(), BaseView {
     fun showConfirmDialog(title: String = "",
                           message: String = "",
                           positive: () -> Unit,
-                          negative: (() -> Unit)? = null)  {
+                          negative: (() -> Unit)? = null) {
         showNotCancelableDialog(this,
                 title = "Внимание! Удалить документ?",
                 positiveClick = DialogInterface.OnClickListener { dialog, _ ->
@@ -89,16 +91,20 @@ open class BaseActivity : MvpAppCompatActivity(), BaseView {
                                 message: String = "",
                                 positiveClick: DialogInterface.OnClickListener,
                                 negativeClick: DialogInterface.OnClickListener) {
-        val dialog = android.support.v7.app.AlertDialog.Builder(context)
+        val dialog = android.support.v7.app.AlertDialog.Builder(context, R.style.MyDialogTheme)
                 .setTitle(title)
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton("Да", positiveClick)
                 .setNegativeButton("Нет", negativeClick).create()
-        dialog.setOnShowListener {
-            dialog.getButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE).setTextColor(context.resources.getColor(android.R.color.background_dark))
-            dialog.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE).setTextColor(context.resources.getColor(android.R.color.background_dark))
-        }
         dialog.show()
+    }
+
+    override fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        progressBar.visibility = View.GONE
     }
 }
