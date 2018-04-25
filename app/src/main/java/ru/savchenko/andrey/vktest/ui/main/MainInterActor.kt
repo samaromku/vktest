@@ -1,7 +1,5 @@
 package ru.savchenko.andrey.vktest.ui.main
 
-import com.vk.sdk.VKScope
-import com.vk.sdk.VKSdk
 import io.reactivex.Maybe
 import io.reactivex.Single
 import ru.savchenko.andrey.vktest.entities.Item
