@@ -74,7 +74,6 @@ class ExampleUnitTest {
     }
 
 
-
 //    3)Дана строка и число k,
 //    нужно найти максимальную по длине подстроку в этой строке
 //    в которой k- равно число уникальных символов.
@@ -84,33 +83,45 @@ class ExampleUnitTest {
 //    Ответ: максимальная длина подстроки ровна 12 и она выглядит так daefeeefabee.
 
     @Test
-    fun getMaxSubString(){
+    fun getMaxSubString() {
 
     }
 
 
-    val test = """
+    //    4) public class TreeNode
+//    {
+//        public int Data
+//        public TreeNode Left
+//        public TreeNode Righ
+//    }
+//    написать функцию считающую количество листьев
+    @Test
+    fun getTreeCount() {
 
+        val testNode = TreeNode(1,
+                TreeNode(0, null,
+                        TreeNode(0, null, null)),
+                TreeNode(1,
+                        TreeNode(0,
+                                TreeNode(1, null, null),
+                                TreeNode(1, null, null)), null))
+        println(countLeaves(testNode))
 
-        4) public class TreeNode
+    }
 
-        {
-
-
-        public int Data
-
-        public TreeNode Left
-
-        public TreeNode Righ
-
-
+    fun countLeaves(node: TreeNode?): Int {
+        if (node == null) {
+            return 0
         }
+        if (node.left == null && node.right == null) {
+            return 1
+        }
+        return countLeaves(node.left) + countLeaves(node.right)
+    }
 
-
-
-        написать функцию считающую количество листьев
-
-
-
-    """.trimIndent()
+    data class TreeNode(
+            val data: Int?,
+            val left: TreeNode?,
+            val right: TreeNode?
+    )
 }
