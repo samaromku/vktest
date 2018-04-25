@@ -3,6 +3,8 @@ package ru.savchenko.andrey.vktest
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.util.*
+
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -15,7 +17,7 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 
-//    1)Дан массив чисел. дано расстояние k.
+    //    1)Дан массив чисел. дано расстояние k.
 //    если числа в массиве находятся рядом то они на расстоянии 1 друг от друга.
 //    нужно найти количество пар дублей, которые находятся на расстоянии k друг от друга
     @Test
@@ -38,11 +40,11 @@ class ExampleUnitTest {
             }
         }
         //get all duplicates
-        for(duplicate in listOFDuplicateValue){
+        for (duplicate in listOFDuplicateValue) {
             //get all indexes of duplicates
-            for(index in duplicate.mutableSet){
-                for(anotherIndex in duplicate.mutableSet){
-                    if(index-anotherIndex==k){
+            for (index in duplicate.mutableSet) {
+                for (anotherIndex in duplicate.mutableSet) {
+                    if (index - anotherIndex == k) {
                         count++
                     }
                 }
@@ -54,22 +56,40 @@ class ExampleUnitTest {
     data class DuplicateValue(val value: Int,
                               val mutableSet: MutableSet<Int> = mutableSetOf())
 
+    //    2)Дан несортированный массив чисел. дана сумма какая то n.
+//    нужно выяснить есть ли в массиве два числа которые в сумме дают n
+    @Test
+    fun getSumPair() {
+        val array = listOf<Int>(1, 2, 3, 6, 13, 12, 2, 34, 15, 15)
+        val totalSum = 25
+        val set = HashSet<Int>()
+        for (num in array) {
+            if (set.contains(totalSum - num)) {
+                println("$num, ${(totalSum - num)} add up to totalSum")
+                return
+            }
+            set.add(num)
+        }
+        println("no pair of numbers totalSum: $totalSum")
+    }
+
+
+
+//    3)Дана строка и число k,
+//    нужно найти максимальную по длине подстроку в этой строке
+//    в которой k- равно число уникальных символов.
+//
+//    Пример: дана тестовая строка aabcbbacdaefeeefabeecda и k=4.
+//
+//    Ответ: максимальная длина подстроки ровна 12 и она выглядит так daefeeefabee.
+
+    @Test
+    fun getMaxSubString(){
+
+    }
+
+
     val test = """
-        1)Дан массив чисел. дано расстояние k.
-        если числа в массиве находятся рядом то они на расстоянии 1 друг от друга.
-        нужно найти количество пар дублей, которые находятся на расстоянии k друг от друга
-
-        2)Дан несортированный массив чисел. дана сумма какая то n.
-        нужно выяснить есть ли в массиве два числа которые в сумме дают n
-
-        3)Дана строка и число k,
-        нужно найти максимальную по длине подстроку в этой строке
-        в которой k- равно число уникальных символов.
-
-        Пример: дана тестовая строка aabcbbacdaefeeefabeecda и k=4.
-
-        Ответ: максимальная длина подстроки ровна 12 и она выглядит так daefeeefabee.
-
 
 
         4) public class TreeNode
@@ -77,11 +97,11 @@ class ExampleUnitTest {
         {
 
 
-        public int Data;
+        public int Data
 
-        public TreeNode Left;
+        public TreeNode Left
 
-        public TreeNode Righ;
+        public TreeNode Righ
 
 
         }
