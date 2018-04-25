@@ -24,7 +24,7 @@ class MainActivity : BaseActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.initSdkIfNeed()
+        initSdk()
         ivSend.setOnClickListener {
             presenter.getNews(etGroupId.text.toString())
         }
@@ -42,8 +42,10 @@ class MainActivity : BaseActivity(), MainView {
         })
     }
 
-    override fun initSdk() {
-        VKSdk.login(this, VKScope.WALL, VKScope.FRIENDS)
+    fun initSdk() {
+        if(Storage.token.isEmpty()) {
+            VKSdk.login(this, VKScope.WALL, VKScope.FRIENDS)
+        }
     }
 
     override fun setListToAdapter(list: MutableList<Item>) {

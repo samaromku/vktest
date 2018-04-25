@@ -81,6 +81,7 @@ class ExampleUnitTest {
 //    Пример: дана тестовая строка aabcbbacdaefeeefabeecda и k=4.
 //
 //    Ответ: максимальная длина подстроки ровна 12 и она выглядит так daefeeefabee.
+//    не понял задания. здесь 5 уникальных символов daefeeefabee a, b, d, e, f
 
     @Test
     fun getMaxSubString() {
